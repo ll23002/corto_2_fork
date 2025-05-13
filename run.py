@@ -1,7 +1,7 @@
 import numpy as np
 from utils.read_csv import read_csv
 from utils.canvas import Canvas
-
+from utils.generate_csv import generate_csv
 """
   Implementa la funcion de Interpolacion de lagrange paga generar un nuevo dataset
   a partir de los valores de x e y leidos del archivo csv
@@ -26,15 +26,18 @@ def generate_dataset(x_values, y_values):
 
 
 def main():
+
+  # Generar un archivo CSV con valores aleatorios
+  generate_csv(lambda x: x**3 + 4*x**2 + 3, (0, 100), num_points=50, filename="data.csv")
+
   x_values, y_values = read_csv("data.csv")
 
   new_x, new_y = generate_dataset(x_values, y_values)
-
   canvas = Canvas(title="My Plot", xlabel="X-axis", ylabel="Y-axis")
   canvas.add_dataset(x_values, y_values, label="valores del csv", color="blue")
   canvas.add_dataset(new_x, new_y, label="valores generados de interpolacion", color="red")
 
-  canvas.plot()
+  canvas.show()
 
 if __name__ == "__main__":
   main()
